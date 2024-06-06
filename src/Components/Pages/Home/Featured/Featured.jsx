@@ -9,7 +9,7 @@ const Featured = () => {
         subHeading="Featured Item"
       ></SectionTitle>
 
-      <div className="md:flex items-center bg-opacity-60  bg-slate-500 justify-center pb-20 px-36 pt-20 text-white gap-10">
+      <div className="md:flex items-center bg-opacity-70  bg-base-100 justify-center pb-20 px-36 pt-20  gap-10">
         <div>
           <img src={featuredImg} alt="" />
         </div>
@@ -22,7 +22,7 @@ const Featured = () => {
             Eaque repellat recusandae ad laudantium tempore consequatur
             consequuntur omnis ullam maxime tenetur.
           </p>
-          <button className="btn btn-outline border-0 mt-5 px-10 text-xl text-black border-b-2">
+          <button className="btn btn-outline border-0 mt-5 px-10 text-xl border-b-2">
             Order Now
           </button>
         </div>
