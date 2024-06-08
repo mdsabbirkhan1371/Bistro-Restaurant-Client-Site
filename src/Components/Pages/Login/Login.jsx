@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import loginImage from '../../../public/assets/others/authentication1.png';
+import loginImage from '../../../../public/assets/others/authentication1.png';
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -9,6 +9,8 @@ import {
 const Login = () => {
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
+
+  // for reCaptcha
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -28,6 +30,8 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+
+    // sign in user with email and password
   };
   return (
     <div className="hero min-h-screen ">
