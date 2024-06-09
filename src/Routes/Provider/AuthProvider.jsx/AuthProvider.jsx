@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { createContext, useEffect, useState } from 'react';
 import auth from '../../../Components/firebase/firebase.config';
@@ -34,6 +35,15 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // update photo and name
+
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+
   // user exist or not
 
   useEffect(() => {
@@ -52,6 +62,7 @@ const AuthProvider = ({ children }) => {
     signIn,
     createUser,
     logOut,
+    updateUserProfile,
   };
   return (
     <AuthContext.Provider value={information}>{children}</AuthContext.Provider>

@@ -6,12 +6,17 @@ import {
   validateCaptcha,
 } from 'react-simple-captcha';
 import { AuthContext } from '../../../Routes/Provider/AuthProvider.jsx/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Login.css';
 import Swal from 'sweetalert2';
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const { signIn } = useContext(AuthContext);
+
+  // for private route
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   // for reCaptcha
   useEffect(() => {
@@ -58,6 +63,7 @@ const Login = () => {
     `,
             },
           });
+          navigate(from, { replace: true });
         }
       })
       .catch(err => {

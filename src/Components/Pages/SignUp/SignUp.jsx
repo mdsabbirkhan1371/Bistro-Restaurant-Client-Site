@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import signUpImage from '../../../../public/assets/others/authentication2.png';
 import { useContext } from 'react';
 import { AuthContext } from '../../../Routes/Provider/AuthProvider.jsx/AuthProvider';
 import Swal from 'sweetalert2';
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const handleSignUp = event => {
     event.preventDefault();
 
@@ -13,7 +16,9 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
     const name = form.name.value;
+    const photo = form.photo.value;
     const user = { email, password, name };
+
     console.log({ user });
 
     // create user
@@ -21,15 +26,20 @@ const SignUp = () => {
       .then(result => {
         const user = result.user;
         console.log(user);
-        if (user) {
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'Your Account Has been Created',
-            showConfirmButton: false,
-            timer: 1500,
+        updateUserProfile(name, photo)
+          .then(() => {
+            Swal.fire({
+              position: 'top',
+              icon: 'success',
+              title: 'Your Account Has been Created',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate('/');
+          })
+          .catch(err => {
+            console.error(err);
           });
-        }
       })
       .catch(err => {
         console.error(err);
@@ -55,6 +65,18 @@ const SignUp = () => {
                   placeholder="Name"
                   className="input input-bordered"
                   name="name"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Photo URL"
+                  className="input input-bordered"
+                  name="photo"
                   required
                 />
               </div>

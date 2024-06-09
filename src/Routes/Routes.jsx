@@ -5,6 +5,8 @@ import Menu from '../Components/Pages/Menu/Menu';
 import Order from '../Components/Order/Order';
 import Login from '../Components/Pages/Login/Login';
 import SignUp from '../Components/Pages/SignUp/SignUp';
+import Secret from '../Components/Shared/Secret/Secret';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
       {
         path: '/signUp',
         element: <SignUp></SignUp>,
+      },
+      {
+        path: '/secret',
+        element: (
+          <PrivateRoute>
+            <Secret></Secret>
+          </PrivateRoute>
+        ),
       },
     ],
   },

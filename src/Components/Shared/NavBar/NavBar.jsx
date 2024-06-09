@@ -22,17 +22,20 @@ const NavBar = () => {
       <li>
         <Link to="/order/salad">ORDER FOOD</Link>
       </li>
+      <li>
+        <Link to="/secret">Secret</Link>
+      </li>
 
       {user ? (
         <>
           <li>
-            <Link onClick={handleLogout}>Logout</Link>
+            <Link onClick={handleLogout}>LOGOUT</Link>
           </li>
         </>
       ) : (
         <>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/login">LOGIN</Link>
           </li>
         </>
       )}
@@ -75,9 +78,7 @@ const NavBar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
-      </div>
+      <div className="navbar-end">{user && <p>{user.displayName}</p>}</div>
     </div>
   );
 };
