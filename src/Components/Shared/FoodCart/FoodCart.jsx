@@ -12,7 +12,7 @@ const FoodCart = ({ item }) => {
 
   const { user } = useAuth();
 
-  // from tan stac query refetching data in carts
+  // from tan stack query refetching data in carts
 
   const [, refetch] = useCarts();
 
@@ -43,6 +43,8 @@ const FoodCart = ({ item }) => {
               showConfirmButton: false,
               timer: 2500,
             });
+
+            // from tan stack for update cart instant
             refetch();
           }
         })
