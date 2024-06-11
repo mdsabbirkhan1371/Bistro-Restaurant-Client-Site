@@ -31,7 +31,6 @@ const DashCart = () => {
         });
       }
     });
-    console.log(id);
   };
   return (
     <div>
