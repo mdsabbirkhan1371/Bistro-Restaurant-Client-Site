@@ -3,11 +3,14 @@ import signUpImage from '../../../../public/assets/others/authentication2.png';
 import { useContext } from 'react';
 import { AuthContext } from '../../../Routes/Provider/AuthProvider.jsx/AuthProvider';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import SocialLogin from '../../Shared/SocialLogin/SocialLogin';
 
 const SignUp = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleSignUp = event => {
     event.preventDefault();
@@ -18,7 +21,6 @@ const SignUp = () => {
     const name = form.name.value;
     const photo = form.photo.value;
     const user = { email, password, name };
-
     console.log({ user });
 
     // create user
@@ -28,14 +30,27 @@ const SignUp = () => {
         console.log(user);
         updateUserProfile(name, photo)
           .then(() => {
-            Swal.fire({
-              position: 'top',
-              icon: 'success',
-              title: 'Your Account Has been Created',
-              showConfirmButton: false,
-              timer: 1500,
+            // send user to data base
+            const userInformation = {
+              name: name,
+              email: email,
+              photo: photo,
+            };
+
+            axiosPublic.post('/users', userInformation).then(res => {
+              console.log('user inserted to database');
+              if (res.data.insertedId) {
+                form.reset();
+                Swal.fire({
+                  position: 'top',
+                  icon: 'success',
+                  title: 'Your Account Has been Created',
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate('/');
+              }
             });
-            navigate('/');
           })
           .catch(err => {
             console.error(err);
@@ -117,6 +132,7 @@ const SignUp = () => {
                 Already Registered? <Link to="/login">Go To Login...</Link>
               </small>
             </p>
+            <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>

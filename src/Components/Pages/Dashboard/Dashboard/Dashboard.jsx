@@ -1,8 +1,14 @@
-import { FaHome, FaShoppingCart } from 'react-icons/fa';
-import { MdDateRange, MdFoodBank, MdOutlineReviews } from 'react-icons/md';
+import {
+  FaChessBishop,
+  FaEnvelope,
+  FaHome,
+  FaShoppingCart,
+} from 'react-icons/fa';
+import { MdDateRange, MdOutlineReviews } from 'react-icons/md';
 import { RiReservedFill, RiSecurePaymentFill } from 'react-icons/ri';
 import { NavLink, Outlet } from 'react-router-dom';
 import useCarts from '../../../../hooks/useCarts';
+import { TiThMenu } from 'react-icons/ti';
 
 const Dashboard = () => {
   const [cart] = useCarts();
@@ -54,10 +60,23 @@ const Dashboard = () => {
               Home
             </NavLink>
           </li>
+
           <li>
             <NavLink to="/order/salad">
-              <MdFoodBank />
-              Order More
+              <TiThMenu />
+              Menu
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/">
+              <FaChessBishop />
+              Shop
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/">
+              <FaEnvelope />
+              Contact
             </NavLink>
           </li>
         </ul>
