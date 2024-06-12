@@ -10,6 +10,12 @@ const AllUsers = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
+      // normal use without interceptor
+      // const result = await axiosSecure.get('/users', {
+      //   headers: {
+      //     authorization: `Bearer ${localStorage.getItem('access-token')}`,
+      //   },
+      // });
       const result = await axiosSecure.get('/users');
       return result.data;
     },

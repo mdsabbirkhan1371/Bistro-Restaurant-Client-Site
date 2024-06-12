@@ -10,7 +10,7 @@ const SocialLogin = () => {
 
   const handleSignIn = () => {
     googleSignIn().then(res => {
-      console.log('google sign', res.user);
+      // console.log('google sign', res.user);
 
       // send to db user
       const userInformation = {
