@@ -2,12 +2,45 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import useMenu from '../../../../hooks/useMenu';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
+import SectionTitle from '../../../Shared/SectionTitle/SectionTitle';
 
 const ManageItems = () => {
-  const [menu] = useMenu();
+  const [menu, , refetch] = useMenu();
+  const axiosSecure = useAxiosSecure();
+
+  const handleDeleteItem = item => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then(result => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/menu/${item._id}`).then(res => {
+          console.log(res.data);
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: 'Deleted!',
+              text: `${item.name} has been deleted`,
+              icon: 'success',
+            });
+          }
+        });
+      }
+    });
+  };
 
   return (
     <div>
+      <SectionTitle
+        heading={'Manage Item'}
+        subHeading={'Manage Item'}
+      ></SectionTitle>
       <h3 className="text-3xl font-semibold">Total Items: {menu.length}</h3>
       <div className="overflow-x-auto">
         <table className="table">
@@ -41,12 +74,17 @@ const ManageItems = () => {
                 <td>{item.name}</td>
                 <td>${item.price}</td>
                 <th>
-                  <button className=" btn btn-ghost text-2xl text-orange-400 hover:text-yellow-500">
-                    <FaEdit></FaEdit>
-                  </button>
+                  <Link to={`/dashboard/updateItem/${item._id}`}>
+                    <button className=" btn btn-ghost text-2xl text-orange-400 hover:text-yellow-500">
+                      <FaEdit></FaEdit>
+                    </button>
+                  </Link>
                 </th>
                 <th>
-                  <button className=" btn btn-ghost text-2xl hover:text-green-400 text-red-500 ">
+                  <button
+                    onClick={() => handleDeleteItem(item)}
+                    className=" btn btn-ghost text-2xl hover:text-green-400 text-red-500 "
+                  >
                     <FaTrash></FaTrash>
                   </button>
                 </th>
