@@ -2,6 +2,7 @@ import { FaTrash } from 'react-icons/fa';
 import useCarts from '../../../hooks/useCarts';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Link } from 'react-router-dom';
 
 const DashCart = () => {
   const [cart, refetch] = useCarts();
@@ -37,9 +38,20 @@ const DashCart = () => {
       <div className="flex justify-evenly text-3xl font-semibold mb-12">
         <h3>Total Items : {cart.length}</h3>
         <h3>Total Price : ${totalPrice}</h3>
-        <button className="btn btn-primary hover:text-green-400 btn-sm">
-          Make Payment
-        </button>
+        {cart.length ? (
+          <Link to={'/dashboard/payment'}>
+            <button className="btn btn-primary hover:text-green-400 btn-sm">
+              Make Payment
+            </button>
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="btn btn-primary hover:text-green-400 btn-sm"
+          >
+            Make Payment
+          </button>
+        )}
       </div>
       <div className="overflow-x-auto">
         <table className="table">
