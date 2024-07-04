@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import useCarts from '../../../../hooks/useCarts';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import useAuth from '../../../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const CheckOutForm = () => {
   const stripe = useStripe();
@@ -14,6 +16,7 @@ const CheckOutForm = () => {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   // second step after create api in bk
 
@@ -99,6 +102,17 @@ const CheckOutForm = () => {
         console.log('payment information saved', res.data);
 
         refetch();
+        if (res.data?.paymentResult?.insertedId) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Thank you for Your Payment',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          navigate('/dashboard/paymentHistory');
+        }
       }
     }
   };

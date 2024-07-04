@@ -55,6 +55,12 @@ const Dashboard = () => {
                   All Users
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/dashboard/allUsers">
+                  <FaUsers></FaUsers>
+                  All Users
+                </NavLink>
+              </li>
             </>
           ) : (
             <>
@@ -71,7 +77,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/paymentHistory">
+                <NavLink to="/dashboard/history">
                   <RiSecurePaymentFill />
                   Payment History
                 </NavLink>
@@ -89,9 +95,9 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/myBooking">
+                <NavLink to="/dashboard/paymentHistory">
                   <MdDateRange />
-                  My Booking
+                  Real Payment History
                 </NavLink>
               </li>
             </>
