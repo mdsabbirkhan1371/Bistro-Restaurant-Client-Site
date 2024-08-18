@@ -55,12 +55,6 @@ const Dashboard = () => {
                   All Users
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/dashboard/allUsers">
-                  <FaUsers></FaUsers>
-                  All Users
-                </NavLink>
-              </li>
             </>
           ) : (
             <>

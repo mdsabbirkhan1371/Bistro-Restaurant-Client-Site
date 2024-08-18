@@ -73,13 +73,14 @@ const AuthProvider = ({ children }) => {
           // console.log('axios public user', result.data);
           if (result.data.token) {
             localStorage.setItem('access-token', result.data?.token);
+            setLoading(false);
           }
         });
       } else {
         // To Do: remove token (if token is stored in cookies or local storage)
         localStorage.removeItem('access-token');
+        setLoading(false);
       }
-      setLoading(false);
     });
     return () => {
       return unSubscribe();

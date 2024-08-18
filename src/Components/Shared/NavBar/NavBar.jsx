@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Routes/Provider/AuthProvider.jsx/AuthProvider';
 import { FaCartPlus } from 'react-icons/fa';
 import useCarts from '../../../hooks/useCarts';
+import useAdmin from '../../../hooks/useAdmin';
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [cart] = useCarts();
+  const [isAdmin] = useAdmin();
   // console.log('my cart items', cart);
   const handleLogout = () => {
     logOut()
@@ -35,6 +37,18 @@ const NavBar = () => {
           <div className="badge badge-secondary">+{cart.length}</div>
         </Link>
       </li>
+
+      {/* for user and admin user home condition  */}
+      {user && isAdmin && (
+        <li>
+          <Link to="/dashboard/adminHome">Dashboard</Link>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <Link to="/dashboard/userHome">Dashboard</Link>
+        </li>
+      )}
 
       {user ? (
         <>
