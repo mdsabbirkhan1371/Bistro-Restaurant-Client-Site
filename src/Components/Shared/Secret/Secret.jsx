@@ -1,7 +1,7 @@
 const Secret = () => {
   return (
-    <div>
-      <h4>This Is Secret</h4>
+    <div className="my-36 text-center">
+      <h4>This Is Secret Page</h4>
     </div>
   );
 };
